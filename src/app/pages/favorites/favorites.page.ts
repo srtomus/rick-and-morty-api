@@ -15,7 +15,6 @@ export class FavoritesPage implements OnInit {
 
   ngOnInit() {
     this.favoritesList = this.activatedRoute.snapshot.data.storage;
-    console.log(this.favoritesList);
 
     if (this.favoritesList == null) {
       this.favoritesList = [];

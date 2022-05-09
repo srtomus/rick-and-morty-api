@@ -10,11 +10,11 @@ export class LocalStorageService {
   constructor(private localStorage: Storage) {}
 
   createStorage() {
-    this.localStorage.create();
+    return this.localStorage.create();
   }
 
   setFavorites(favorites: Character[]) {
-    this.localStorage.set('favorites', favorites);
+    return this.localStorage.set('favorites', favorites);
   }
 
   getFavorites() {

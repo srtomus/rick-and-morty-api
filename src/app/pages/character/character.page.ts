@@ -19,8 +19,6 @@ export class CharacterPage implements OnInit {
   ngOnInit() {
     const resolverData = this.activatedRoute.snapshot.data.http;
 
-    console.log(resolverData);
-
     if (resolverData.error) {
       this.reqStatus = 'error';
       this.errorMessage = resolverData.error.error.error;

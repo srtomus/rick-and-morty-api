@@ -9,16 +9,29 @@ describe('AccordionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccordionComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AccordionComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AccordionComponent);
     component = fixture.componentInstance;
+
+    component.value = 'gender';
+
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('send filter to characters page', () => {
+    const mockData = { filter: 'gender', value: 'alive' };
+
+    component.valueChanged.subscribe((output) => {
+      expect(output.filter).toBe(mockData.filter);
+    });
+
+    component.setFilter(mockData);
   });
 });

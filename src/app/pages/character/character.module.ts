@@ -9,6 +9,7 @@ import { CharacterPageRoutingModule } from './character-routing.module';
 import { CharacterPage } from './character.page';
 
 import { ComponentsModule } from '@components/components.module';
+import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ComponentsModule } from '@components/components.module';
     IonicModule,
     CharacterPageRoutingModule,
     ComponentsModule,
+    PipesModule,
   ],
   declarations: [CharacterPage],
 })

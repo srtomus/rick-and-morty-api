@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { IonSearchbar } from '@ionic/angular';
 
+import { CleanFiltersService } from '@services/clean-filters.service';
 import { ApiService } from '@services/api.service';
 
 import { Character, CharacterInfo, Filters, SelectedFilter } from '@interfaces';
@@ -32,11 +33,13 @@ export class CharactersPage implements OnInit, OnDestroy {
   public currentCharacters: Array<Character>;
   public favoritesList: Array<Character>;
 
-  public onDestroy$: Subject<boolean> = new Subject();
-  public req$: Subject<void> = new Subject<void>();
   public charactersList$: Subscription;
 
+  public onDestroy$: Subject<boolean> = new Subject<boolean>();
+  public sendReq$: Subject<void> = new Subject<void>();
+
   constructor(
+    private cleanFilterService: CleanFiltersService,
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService
   ) {
@@ -92,14 +95,10 @@ export class CharactersPage implements OnInit, OnDestroy {
       )
       .subscribe(
         (value: Character[]) => {
-          console.log(value);
-
           this.currentCharacters = value;
           this.reqStatus = 'success';
         },
         (err) => {
-          console.log(err);
-
           this.errorMessage = err.error.error;
           this.reqStatus = 'error';
         }
@@ -119,25 +118,29 @@ export class CharactersPage implements OnInit, OnDestroy {
   }
 
   searchCharacter(ev) {
-    console.log(ev);
-
     const value = ev.target.value;
 
     if (value != null) {
       this.cleanList();
 
-      this.filters['name'] = value;
+      if (value.length == 0) {
+        delete this.filters.name;
+      } else {
+        this.filters.name = value;
+      }
 
       this.sendReq();
     }
   }
 
   doInfinite(ev) {
-    console.log(ev);
-
     this.page++;
 
-    this.filters['page'] = this.page;
+    this.filters.page = this.page;
+
+    if (this.filters.name == '') {
+      delete this.filters.name;
+    }
 
     this.sendReq();
     ev.target.complete();
@@ -146,7 +149,7 @@ export class CharactersPage implements OnInit, OnDestroy {
   cleanList() {
     this.currentCharacters = [];
     this.page = 1;
-    this.filters['page'] = this.page;
+    this.filters.page = this.page;
   }
 
   checkFavorite(response: Character) {
@@ -169,15 +172,16 @@ export class CharactersPage implements OnInit, OnDestroy {
       page: 1,
     };
 
+    this.cleanFilterService.sendCleaner();
     this.sendReq();
   }
 
   listReq() {
-    return this.req$.asObservable();
+    return this.sendReq$.asObservable();
   }
 
   sendReq() {
-    this.req$.next();
+    this.sendReq$.next();
   }
 
   ngOnDestroy() {

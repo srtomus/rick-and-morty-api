@@ -1,13 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
+
+import { CleanFiltersService } from '@services/clean-filters.service';
 
 import { FilterData } from '@interfaces';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent {
+export class FilterComponent implements OnDestroy {
   @Input() label: any;
 
   @Output() selectedLabel = new EventEmitter<string>();
@@ -32,7 +41,15 @@ export class FilterComponent {
     { name: 'unknown', active: false },
   ];
 
-  constructor() {}
+  public cleaner$: Subscription;
+
+  constructor(private cleanFilterService: CleanFiltersService) {
+    this.cleaner$ = this.cleanFilterService.getCleaner().subscribe(() => {
+      this.resetChips(this.speciesData);
+      this.resetChips(this.statusData);
+      this.resetChips(this.genderData);
+    });
+  }
 
   sendSelected(selectedChip: FilterData) {
     if (selectedChip.active) {
@@ -72,5 +89,9 @@ export class FilterComponent {
     array.forEach((element) => {
       element['active'] = false;
     });
+  }
+
+  ngOnDestroy() {
+    this.cleaner$.unsubscribe();
   }
 }

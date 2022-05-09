@@ -3,6 +3,7 @@ export interface Filters {
   status?: string;
   species?: string;
   gender?: string;
+  name?: string;
 }
 
 export interface SelectedFilter {

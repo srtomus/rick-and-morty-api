@@ -9,7 +9,7 @@
           <span class="cleanFilters" (click)="cleanFilters()">
             Clear filters
           </span>
-          <ion-accordion-group [multiple]="true">
+          <ion-accordion-group class="ion-margin-top" [multiple]="true">
             <app-accordion
               [value]="'status'"
               (valueChanged)="setFilter($event)"
