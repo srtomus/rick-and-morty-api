@@ -1,16 +1,18 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-
   beforeEach(waitForAsync(() => {
-
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+      imports: [
+        IonicStorageModule.forRoot({
+          name: '__mydb',
+          driverOrder: ['indexedDB', 'localstorage'],
+        }),
+      ],
+    });
   }));
 
   it('should create the app', () => {
@@ -19,5 +21,4 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
   // TODO: add more tests!
-
 });

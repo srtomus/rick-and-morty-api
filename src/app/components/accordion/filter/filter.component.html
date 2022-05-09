@@ -1,0 +1,35 @@
+<ng-container [ngSwitch]="label">
+  <ng-container *ngSwitchCase="'status'">
+    <ion-chip
+      *ngFor="let status of statusData"
+      color="primary"
+      outline="true"
+      (click)="sendSelected(status)"
+      [ngClass]="{ selected: status.active }"
+    >
+      <ion-label>{{ status.name }}</ion-label>
+    </ion-chip>
+  </ng-container>
+  <ng-container *ngSwitchCase="'species'">
+    <ion-chip
+      *ngFor="let species of speciesData"
+      color="primary"
+      outline="true"
+      (click)="sendSelected(species)"
+      [ngClass]="{ selected: species.active }"
+    >
+      <ion-label>{{ species.name }}</ion-label>
+    </ion-chip>
+  </ng-container>
+  <ng-container *ngSwitchCase="'gender'">
+    <ion-chip
+      *ngFor="let gender of genderData"
+      color="primary"
+      outline="true"
+      (click)="sendSelected(gender)"
+      [ngClass]="{ selected: gender.active }"
+    >
+      <ion-label>{{ gender.name }}</ion-label>
+    </ion-chip>
+  </ng-container>
+</ng-container>

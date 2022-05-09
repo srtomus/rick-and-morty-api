@@ -1,0 +1,17 @@
+<ion-header class="ion-padding">
+  <img src="assets/images/logo.svg" (click)="goTo('characters')" />
+  <div class="pages">
+    <p
+      (click)="goTo('characters')"
+      [ngClass]="{ selected: currentUrl == '/characters' }"
+    >
+      Characters list
+    </p>
+    <p
+      (click)="goTo('favorites')"
+      [ngClass]="{ selected: currentUrl == '/favorites' }"
+    >
+      Favorites
+    </p>
+  </div>
+</ion-header>

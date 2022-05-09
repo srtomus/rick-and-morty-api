@@ -1,0 +1,40 @@
+ion-header {
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  img {
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .pages {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 0;
+
+    p {
+      cursor: pointer;
+    }
+  }
+
+  .selected {
+    font-weight: bold;
+  }
+}
+
+@media all and (min-width: 570px) {
+  ion-header {
+    height: 14vh;
+    flex-direction: row;
+
+    .pages {
+      flex-direction: row;
+      gap: 5rem;
+    }
+  }
+}

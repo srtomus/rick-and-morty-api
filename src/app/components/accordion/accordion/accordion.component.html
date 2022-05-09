@@ -1,0 +1,12 @@
+<ion-accordion [value]="value">
+  <ion-item slot="header">
+    <ion-label>{{ value }}</ion-label>
+  </ion-item>
+
+  <ion-list slot="content">
+    <app-filter
+      [label]="value"
+      (selectedLabel)="setFilter($event)"
+    ></app-filter>
+  </ion-list>
+</ion-accordion>

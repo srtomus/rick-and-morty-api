@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-icon
+    *ngIf="!character.favorite; else favoriteCharacter"
+    (click)="toggleFavorite(character)"
+    name="heart-outline"
+  ></ion-icon>
+  <ng-template #favoriteCharacter>
+    <ion-icon (click)="toggleFavorite(character)" name="heart"></ion-icon>
+  </ng-template>
+  <img
+    class="cardImg"
+    [defaultImage]="defaultImg"
+    [lazyLoad]="character.image"
+    (click)="seeDetails(character.id)"
+  />
+  <ion-card-header (click)="seeDetails(character.id)">
+    <ion-card-subtitle>{{ character.species }}</ion-card-subtitle>
+    <ion-card-title>{{ character.name }}</ion-card-title>
+  </ion-card-header>
+</ion-card>

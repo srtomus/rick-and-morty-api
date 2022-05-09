@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-card
+    class="ion-margin-vertical ion-text-center"
+    *ngIf="reqStatus == 'success'; else error"
+  >
+    <img class="ion-padding" [src]="character.image" />
+    <ion-card-header>
+      <ion-card-title>{{ character.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>Gender: {{ character.gender }}</p>
+      <p>Location: {{ character.location?.name }}</p>
+      <p>Origin: {{ character.origin?.name }}</p>
+      <p>Status: {{ character.status }}</p>
+      <p>Species: {{ character.species }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ng-template #error>
+    <p class="ion-text-center">{{ errorMessage }}</p>
+  </ng-template>
+</ion-content>
